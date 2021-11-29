@@ -4,6 +4,24 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+// in program data
+let users = [
+  {
+    'name':'Foo',
+    'username': 'Bar',
+    'password': 'FooBar1@#',
+    'balance': 5
+  },
+  {
+    'name':'Doo',
+    'username': 'Car',
+    'password': 'DooCar1@#',
+    'balance': 10
+  }
+]
+// used to set the initial data
+localStorage.setItem('userData', JSON.stringify(users));
+
 ReactDOM.render(
   <React.StrictMode>
     <App />

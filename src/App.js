@@ -3,6 +3,10 @@ import Main from "./components/Main";
 import CreateUser from "./components/CreateUser";
 import './App.css';
 
+/*
+App.js is the switch between all the components
+*/
+
 function App() {
 
   const [login, setLogin] = useState(false);
@@ -12,8 +16,15 @@ function App() {
     setLogin(loginState);
   }
 
-  const checkCreateUser = (createUserState) =>{
+  const checkCreateUser = (createUserState, user) =>{
     setCreateUser(createUserState);
+    if(user != null){
+      const saved = localStorage.getItem('userData');
+      const users = JSON.parse(saved);
+      users.push(user);
+      localStorage.setItem('userData', JSON.stringify(users));
+      console.log(users);
+    }
   }
 
   return (
@@ -21,7 +32,7 @@ function App() {
       {!login && !createUser && <Main checkLogin={checkLogin} 
                                       checkCreateUser={checkCreateUser}/>}
       {login && <h1>login</h1>}
-      {createUser && <CreateUser />}
+      {createUser && <CreateUser addUser={checkCreateUser} />}
     </div>
   );
 }

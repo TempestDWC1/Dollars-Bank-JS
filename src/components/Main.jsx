@@ -1,5 +1,7 @@
 import React from "react";
-
+/*
+Main.jss is the first window and where login and create user can be accessed
+*/
 function Main(props){
 
     const handleLogin = (e) => {
