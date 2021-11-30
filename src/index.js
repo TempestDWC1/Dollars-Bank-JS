@@ -5,6 +5,8 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 // in program data
+// I have to put this here so that inbetween the different features, create user/login
+// the data isn't reset
 let users = [
   {
     'name':'Foo',

@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import Main from "./components/Main";
 import CreateUser from "./components/CreateUser";
+import Login from "./components/Login";
 import './App.css';
 
 /*
@@ -8,6 +9,11 @@ App.js is the switch between all the components
 */
 
 function App() {
+
+  // using localStorage that was stored in index.js
+  const saved = localStorage.getItem('userData');
+  // clean up the data so its in a manipulatable format
+  const users = JSON.parse(saved);
 
   const [login, setLogin] = useState(false);
   const [createUser, setCreateUser] = useState(false);
@@ -19,9 +25,8 @@ function App() {
   const checkCreateUser = (createUserState, user) =>{
     setCreateUser(createUserState);
     if(user != null){
-      const saved = localStorage.getItem('userData');
-      const users = JSON.parse(saved);
       users.push(user);
+      // store the data
       localStorage.setItem('userData', JSON.stringify(users));
       console.log(users);
     }
@@ -31,7 +36,7 @@ function App() {
     <div className="container">
       {!login && !createUser && <Main checkLogin={checkLogin} 
                                       checkCreateUser={checkCreateUser}/>}
-      {login && <h1>login</h1>}
+      {login && <Login checkLogin={checkLogin} users={users}/>}
       {createUser && <CreateUser addUser={checkCreateUser} />}
     </div>
   );

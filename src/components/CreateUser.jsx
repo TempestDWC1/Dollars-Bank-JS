@@ -28,6 +28,7 @@ function CreateUser(props){
         }
 
         // if the submittion is good then change the props and move on
+        // set the user state to false so that we go back to main screen
         props.addUser(false, {'name':name, 'username':username, 'password': password, 
                               'balance': balance});
     }
