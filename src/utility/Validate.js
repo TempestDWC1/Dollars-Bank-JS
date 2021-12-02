@@ -1,3 +1,4 @@
+import DecimalCount from "./DecimalCount";
 /*
     Validate will be used by CreateUser to check the submittion for errors
 */
@@ -5,6 +6,9 @@
 function Validate(name, username, password, balance){
 
     const errors = [];
+
+    // must convert balance to a float, because input is string by default
+    balance = parseFloat(balance);
 
     if(name.length === 0) errors.push("Name cannot be empty!");
 
@@ -19,7 +23,7 @@ function Validate(name, username, password, balance){
     // check to make sure its positive and finally check to see if fits formate
     if(balance.length === 0){
         errors.push("You have to provide an initial balance!");
-    }else if(typeof balance === 'string' && isNaN(balance) && (balance < 0) && isNaN(parseFloat(balance).toFixed(2))){
+    }else if(isNaN(balance) || (balance < 0) || DecimalCount(balance) >= 2){
         errors.push("Balance must be a positive Number with only 2 decimal places");
     }
 

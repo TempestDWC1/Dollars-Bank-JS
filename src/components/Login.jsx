@@ -9,6 +9,7 @@ function Login(props){
     // user for user data
     const [error, setError] = useState(false);
     const [user, setUser] = useState(null);
+    const [userIndex, setUserIndex] = useState(null);
 
     // will be used when user is done and wants to sign out of account
     const checkUser = (userState) => {
@@ -20,15 +21,18 @@ function Login(props){
 
         const username = e.target.username.value;
         const password = e.target.password.value;
-        console.log(username + " " + password);
+        // this will be used for transactions and transfer to know which
+        let index = 0;
+
         // go through each user
         for(let user of props.users){
             // check if username and password match up
-            console.log(user.username + " " + user.password);
             if(user.username === username && user.password === password){
                 setUser(user);
+                setUserIndex(index);
                 return;
             }
+            index++
         };
 
         setError(true);
@@ -37,7 +41,8 @@ function Login(props){
 
     return(
         <div className='container'>
-            {user != null && <Account user={user} checkUser={checkUser}/>}
+            {user != null && <Account user={user} userIndex={userIndex} 
+                                      allUsers={props.users} checkUser={checkUser}/>}
             {user === null && 
                 <form onSubmit={handleSubmit}>
                     {error && <p key='error'>Username or Password is incorrect</p>}
